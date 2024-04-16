@@ -1,0 +1,55 @@
+.register {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 150px 150px 150px 150px;
+    }
+    
+    .registerContainer {
+      gap : 30px;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 30px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .registerText {
+      font-weight: 800;
+      text-align: center;
+    }
+    .formLogin {
+      margin-bottom: 15px;
+    }
+    .text-noti {
+      text-align: center;
+      font-weight: 500;
+    }
+    
+    .loginInput{
+      height: 30px;
+      padding: 10px;
+    }
+    
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    
+    .lButton {
+      border: none;
+      padding: 10px 20px;
+      background-color: #0071c2;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    
+    .lButton:disabled{
+      background-color: #0071c28c;
+      cursor: not-allowed;
+    }
+    .regText {
+      text-align: center;
+    }

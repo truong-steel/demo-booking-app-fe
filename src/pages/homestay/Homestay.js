@@ -20,6 +20,7 @@ import Reserve from "../../components/reserve/Reserve";
 const Homestay = () => {
   const [slideNumber, setSlideNumber] = useState(0);
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate()
 
   const photos = [
     {
@@ -87,7 +88,7 @@ const Homestay = () => {
           </div>
         )}
         <div className="hotelWrapper">
-          <button className="bookNow">Reserve or Book Now!</button>
+          <button className="bookNow" onClick={()=> navigate('/booking')}>Reserve or Book Now!</button>
           <h1 className="hotelTitle">Tower Street Apartments</h1>
           <div className="hotelAddress">
             <FontAwesomeIcon icon={faLocationDot} />

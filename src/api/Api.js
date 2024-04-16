@@ -147,6 +147,7 @@ export async function adminSignUp(dataReq) {
     }
 }
 
+// Profile APIs
 
 export async function getUserProfile(userId, token) {
     try {
@@ -170,9 +171,31 @@ export async function getUser(userId, token) {
     }
 }
 
-// Booking APIs 
+export async function deleteUser(userId){
+    try {
+        const response = await api.delete(`/user/delete/${userId}`,{
+            headers: getHeader()
+        })
+        return response.data
+    } catch (error) {
+        return error.message
+    }
+}
 
-// Booking Room
+export async function getBookingsByUserId(userId, token) {
+	try {
+		const response = await api.get(`/bookings/user/${userId}/bookings`, {
+			headers: getHeader()
+		})
+		return response.data
+	} catch (error) {
+		console.error("Error fetching bookings:", error.message)
+		throw new Error("Failed to fetch bookings")
+	}
+}
+
+
+// Booking APIs 
 
 export async function bookRoom(roomId, booking) {
     try {

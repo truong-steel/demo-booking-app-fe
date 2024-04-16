@@ -14,6 +14,8 @@ import SignOut from './account/login/SignOut';
 import RoomList from './pages/room/RoomList';
 import AddRoom from './pages/room/AddRoom';
 import Reserve from './components/reserve/Reserve';
+import RequireAuth from './account/auth/RequireAuth';
+import Profile from './account/profile/Profile';
 
 function App() {
   
@@ -25,11 +27,16 @@ function App() {
         <Route path="/rooms/:id" element={<Homestay/>}/>
         <Route path="/list" element={<ListHomestay/>} />
 
-        <Route path='/booking' element={<Reserve/>} />
+        <Route path='/booking' element={
+          <RequireAuth>
+        <Reserve/>
+          </RequireAuth>
+        } />
 
         <Route path='/manage-room' element={<RoomList/>}/>
         <Route path='/add-room' element={<AddRoom/>}/>
 
+        <Route path='/profile' element={<Profile/>}/>
         <Route path='/signup' element= {<SignUp/>} />
         <Route path='/signin' element={<SignIn/>} />
         <Route path='/' element={<SignOut/>} />

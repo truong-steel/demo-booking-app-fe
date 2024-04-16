@@ -49,7 +49,7 @@ const SignUp = () => {
             <div className='text-noti'>
             <h1>Register Success!</h1>
             <p>
-                <Link to={"/login"}>Sign In</Link>
+                <Link to={"/signin"}>Sign In</Link>
             </p>
             </div>
             

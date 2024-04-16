@@ -10,7 +10,7 @@ import Homestay from './pages/homestay/Homestay'
 import ListHomestay from './pages/list/ListHomestay';
 import SignUp from './account/login/SignUp';
 import SignIn from './account/login/SignIn';
-import SignOut from './account/login/SignOut';
+import { SignOut } from './account/login/SignOut';
 import RoomList from './pages/room/RoomList';
 import AddRoom from './pages/room/AddRoom';
 import Reserve from './components/reserve/Reserve';

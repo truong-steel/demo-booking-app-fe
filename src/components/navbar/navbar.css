@@ -1,19 +1,17 @@
-.nav-bar{
-    /* height: 50px; */
+.navbar{
+    height: 50px;
     background-color: #6b5a44;
-    /* display: flex; */
-    /* justify-content: center; */
-    color: white;
-    position: sticky;
+    display: flex;
+    justify-content: center;
   }
   
-  .container{
-    /* width: 100%; */
-    /* max-width: 1024px; */
-    /* color: white; */
-    /* display: flex; */
+  .navContainer{
+    width: 100%;
+    max-width: 1024px;
+    color: white;
+    display: flex;
     /* align-items: center; */
-    /* justify-content: space-between; */
+    justify-content: space-between;
   }
   
   .logo{
@@ -27,6 +25,8 @@
     cursor: pointer;
     color: #dc9421;
   }
-  .nav-link{
-    color: white;
+  .navItems{
+    display: flex;
+    justify-content: center;
   }
+  

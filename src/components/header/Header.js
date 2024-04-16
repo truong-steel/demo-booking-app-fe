@@ -100,7 +100,7 @@ import {
             <h1 className='headerTitle'>Are you looking for something private ?</h1>
             <h2> Just sign in and start explore! </h2>
             <br/>
-            <button className='headerBtn'
+            <button className='headerButton'
             onClick={() => navigate('/signin')}> Sign In / Register 
             </button>
             </>  )

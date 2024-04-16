@@ -16,18 +16,23 @@ import AddRoom from './pages/room/AddRoom';
 import Reserve from './components/reserve/Reserve';
 import RequireAuth from './account/auth/RequireAuth';
 import Profile from './account/profile/Profile';
+import HomestayDetail from './pages/homestay/HomestayDetail';
+import { AuthProvider } from './account/auth/AuthProvider';
+import ExistingRoom from './room/ExistingRoom';
+import RoomListing from './room/RoomListing';
 
 function App() {
   
   return (
-    <BrowserRouter>
+    <AuthProvider>
       <Routes>
         <Route path="/" element={<Home/>}/>
         <Route path="/rooms" element={<List/>}/>
         <Route path="/rooms/:id" element={<Homestay/>}/>
+        <Route path='/homestays/:id' element={<HomestayDetail/>}/>
         <Route path="/list" element={<ListHomestay/>} />
 
-        <Route path='/booking' element={
+        <Route path='/booking/:id' element={
           <RequireAuth>
         <Reserve/>
           </RequireAuth>
@@ -35,13 +40,14 @@ function App() {
 
         <Route path='/manage-room' element={<RoomList/>}/>
         <Route path='/add-room' element={<AddRoom/>}/>
+        <Route path='/all-rooms' element={<RoomListing/>}/>
 
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/signup' element= {<SignUp/>} />
         <Route path='/signin' element={<SignIn/>} />
         <Route path='/' element={<SignOut/>} />
       </Routes>
-    </BrowserRouter>
+      </AuthProvider>
   )
 }
 

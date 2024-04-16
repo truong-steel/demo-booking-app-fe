@@ -16,7 +16,7 @@ const ListHomestay = () => {
       try {
 
             const res = await getAllHomestays()
-            setHomestays(res.content)
+            setHomestays(res)
         } catch (error) {
             setErrorMessage(error.message)
         }  
@@ -30,7 +30,7 @@ const ListHomestay = () => {
       }, [homestays.length]);
 
       const data = homestays.map((homestay) => ({
-        href: `/homestays/:id`,
+        href: `/homestays/${homestay.id}`,
         title: homestay.homestayName,
         avatar: homestay.homestayImg,
         content:

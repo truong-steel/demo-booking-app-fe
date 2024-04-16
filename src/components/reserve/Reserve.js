@@ -1,123 +1,72 @@
-import React, { useState } from 'react'
-import { bookRoom } from '../../api/Api'
-import { Form, Input , DatePicker, Select, Button } from 'antd'
-import Footer from '../footer/Footer'
-import MailList from '../mailList/MailList'
-import Navbar from '../navbar/Navbar'
-import Header from '../header/Header'
-import './reserve.css'
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
-const Reserve = () => {
-  const [formData , setFormData] = useState({
-    checkInDate: '',
-    checkOutDate:'',
-    totalGuest:'',
-    roomId:''
-  })
-    const handleChange = (e) => {
-      const {name , value} = e.target
-      setFormData({
-        ...formData,
-        [name] : value
-      })
-    }
+function Reverse() {
+  const { id } = useParams();
+  const [checkInDate, setCheckInDate] = useState(null);
+  const [checkOutDate, setCheckOutDate] = useState(null);
+  const [bookedDates, setBookedDates] = useState([]);
 
-    const handleSubmit = (e) => {
-      e.preventDefault();
-      bookRoom(formData);
+  // Simulate fetching booked dates for the room from server
+  useEffect(() => {
+    const fetchBookedDates = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/bookings/room/${id}/bookings`);
+        const data = await response.json();
+        const dates = data.map(booking => new Date(booking.checkinDate));
+        setBookedDates(dates);
+      } catch (error) {
+        console.error('Error fetching booked dates:', error);
+      }
+    };
+
+    fetchBookedDates();
+  }, [id]);
+
+  const handleDateChange = (date, type) => {
+    if (type === 'checkIn') {
+      setCheckInDate(date);
+    } else {
+      setCheckOutDate(date);
     }
+  };
+
+  const isDateBooked = (date) => {
+    return bookedDates.some(bookedDate => {
+      return date.getDate() === bookedDate.getDate() &&
+             date.getMonth() === bookedDate.getMonth() &&
+             date.getFullYear() === bookedDate.getFullYear();
+    });
+  };
 
   return (
-    <>
-    <Navbar/>
-    <Header type='list'/>
-    <div className='container'>
-      <h2> Booking Form </h2>
-      <Form 
-    onSubmit={handleSubmit}
-    variant="filled"
-  >
-    <Form.Item
-      label="Number of Guest"
-      name="InputNumber"
-      rules={[
-        {
-          required: true,
-          message: 'Please input!',
-        },
-      ]}
-    >
-      <Input type="number"
-          name="numGuests"
-          value={formData.numGuests}
-          onChange={handleChange} />
-    </Form.Item>
-    <Form.Item
-      label="Select Room Type"
-      name="Select"
-      rules={[
-        {
-          required: true,
-          message: 'Please input!',
-        },
-      ]}
-    >
-      <Select name="roomType"
-          value={formData.roomType}
-          onChange={handleChange}>
-      <option value="">Select Room Type</option>
-          <option value="single">Single</option>
-          <option value="double">Double</option>
-          <option value="suite">Suite</option>
-        </Select> 
-    </Form.Item>
-    <Form.Item
-      label="Check In Date"
-      name="DatePicker"
-      rules={[
-        {
-          required: true,
-          message: 'Please input!',
-        },
-      ]}
-    >
-      <DatePicker
-      value={formData.checkInDate}
-      onChange={handleChange}
-       />
-    </Form.Item>
-    <Form.Item
-      label="Check Out Date"
-      name="DatePicker"
-      rules={[
-        {
-          required: true,
-          message: 'Please input!',
-        },
-      ]}
-    >
-      <DatePicker 
-      value={formData.checkOutDate}
-      onChange={handleChange}
-      />
-    </Form.Item>
-
-    <Form.Item
-      wrapperCol={{
-        offset: 6,
-        span: 16,
-      }}
-    >
-      <Button type="primary" htmlType="submit">
-        Book Now
-      </Button>
-    </Form.Item>
-    </Form>
+    <div>
+      <h2>Booking Form</h2>
+      <p>Room ID: {id}</p>
+      <div>
+        <h3>Check-in Date</h3>
+        <DatePicker
+          selected={checkInDate}
+          onChange={(date) => handleDateChange(date, 'checkIn')}
+          filterDate={(date) => !isDateBooked(date)}
+          dateFormat="yyyy-MM-dd"
+        />
+      </div>
+      <div>
+        <h3>Check-out Date</h3>
+        <DatePicker
+          selected={checkOutDate}
+          onChange={(date) => handleDateChange(date, 'checkOut')}
+          filterDate={(date) => !isDateBooked(date)}
+          dateFormat="yyyy-MM-dd"
+        />
+      </div>
+      {/* Other form fields */}
+      <button>Book Now</button>
     </div>
-    <MailList/>
-    <Footer/>
-    </>
-  )
+  );
 }
 
-export default Reserve
+export default Reverse;

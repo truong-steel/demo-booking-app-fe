@@ -2,11 +2,12 @@ import React, { useContext, useState } from 'react'
 import './SignIn.css'
 import { Link, useNavigate } from 'react-router-dom'
 import { signIn } from '../../api/Api'
-import { AuthContext } from '../../context/AuthContext'
+// import { AuthContext } from '../../context/AuthContext'
 import Navbar from '../../components/navbar/Navbar'
 import MailList from '../../components/mailList/MailList'
 import Footer from '../../components/footer/Footer'
 import Header from '../../components/header/Header'
+import { AuthContext } from '../auth/AuthProvider'
 
 const SignIn = () => {
     const [errorMessage, setErrorMessage] = useState("")

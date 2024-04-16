@@ -25,7 +25,7 @@ export const getHearder2 = () => {
 
 export async function getAllHomestays() {
     try {
-        const res = await api.get('/api/homestays')
+        const res = await api.get('/homestays/all')
         return res.data
     } catch (error) {
         throw new Error('Error fetching homestays')
@@ -36,7 +36,7 @@ export async function getAllHomestays() {
 
 export async function getAllRooms() {
     try {
-        const res = await api.get('/api/rooms')
+        const res = await api.get('/rooms/all-rooms')
         return res.data
     } catch (error) {
         throw new Error('Error fetching homestays')

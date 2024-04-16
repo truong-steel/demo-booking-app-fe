@@ -1,0 +1,130 @@
+.homestayContainer {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.slider{
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #a0a0b1;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+}
+.sliderWrapper{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sliderImg{
+    width: 80%;
+    height: 80vh;
+}
+.close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 30px;
+    color: lightgray;
+    cursor: pointer;
+}
+.arrow {
+    margin: 20px;
+    font-size: 30px;
+    color: lightgray;
+    cursor: pointer;
+}
+.homestayWrapper {
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: relative;
+}
+.bookNow{
+    position: absolute;
+    top: 10px;
+    right: 0;
+    border: none;
+    padding: 10px 20px;
+    font-weight: bold;
+    background-color: #4c4c6c;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.homestayImgWrapper{
+    width: 33%;
+}
+.homestayImg{
+    width: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+.homestayImages {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.homestayTitle{
+    font-size: 24px;
+}
+.homestayAddress{
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.homestayDistance{
+    font-weight: 500;
+}
+.homestayPriceHighlight{
+    font-weight: 300;
+}
+.homestayDetailsPrice>button{
+    font-weight: bold;
+    background-color: #4c4c6c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.homestayDetails {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+}
+.homestayDetailsTexts {
+    flex: 3;
+}
+.hotelDetailsPrice {
+    flex: 1;
+    background-color: #ebf3ff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+.homestayDesc {
+    font-size: 14px;
+    margin-top: 20px;
+}
+.homestayDetailsPrice>h1{
+    font-size: 18px;
+    color: #555;
+}
+.homestayDetailsPrice>span{
+    font-size: 14px;
+}
+.homestayDetailsPrice>h2{
+    font-weight: 300;
+}

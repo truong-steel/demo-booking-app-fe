@@ -138,7 +138,7 @@ const Homestay = () => {
               <h2>
                 <b>$945</b> (9 nights)
               </h2>
-              <button>Reserve or Book Now!</button>
+              <button onClick={() => navigate('/booking') }>Reserve or Book Now!</button>
             </div>
           </div>
         </div>

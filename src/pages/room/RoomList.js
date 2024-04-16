@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { getAllRooms } from '../../api/Api'
+import { deleteRoom, getAllRooms } from '../../api/Api'
 import { Button, Table , Tag , Space } from 'antd'
 import Navbar from '../../components/navbar/Navbar'
 import Header from '../../components/header/Header'
@@ -9,6 +9,7 @@ const RoomList = () => {
     const [rooms , setRooms] = useState([])
     const [loading , setLoading] = useState(false)
     const [errorMessage , setErrorMessage] = useState('')
+    const [successMsg, setSuccessMsg] = useState("");
     const navigate = useNavigate()
 
     const fetchRooms = async () => {
@@ -25,6 +26,31 @@ const RoomList = () => {
             fetchRooms();
           }
         }, [rooms.length]);
+
+        const handleDeleteRoom = async (roomId) => {
+          try {
+              const res = await deleteRoom(roomId)
+              if (res === "") {
+                  setSuccessMsg(`Room No ${roomId} was delete`)
+                  fetchRooms()
+              } else {
+                  console.error(`Error deleting room: ${res.message}`);
+              }
+          } catch (error) {
+              setErrorMessage(error.message)
+          }
+          setTimeout(() => {
+              setSuccessMsg("")
+              setErrorMessage("")
+          }, 3000)
+      }
+    const data = rooms.map((room) => ({
+        key : '1',
+        id : room.id,
+        type : room.roomType,
+        price : room.roomPrice,
+        img : room.image
+    }) )
     
     const columns = [
         {
@@ -51,21 +77,9 @@ const RoomList = () => {
           {
             title: 'Action',
             key: 'action',
-            render: (_, record) => (
-              <Space size="middle">
-                <a>Edit</a>
-                <a>Delete</a>
-              </Space>
-            ),
           },
         ];
-        const data = rooms.map((room) => ({
-            key : '1',
-            id : room.id,
-            type : room.roomType,
-            price : room.roomPrice,
-            img : room.image
-        }) )
+        
         // const data = [
         //   {
         //     key: '1',

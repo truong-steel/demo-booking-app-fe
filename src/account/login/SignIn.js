@@ -89,7 +89,7 @@ const SignIn = () => {
         
       </div>
       <br/>
-        <p className='loginText'>Don't have account yet ? <Link to='/register'> Sign Up </Link></p>
+        <p className='loginText'>Don't have account yet ? <Link to='/signup'> Sign Up </Link></p>
         </div>
     </div>
     <MailList/>

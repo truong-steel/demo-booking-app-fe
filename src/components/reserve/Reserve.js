@@ -1,72 +1,91 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-function Reverse() {
-  const { id } = useParams();
+export const getHeader = () => {
+  const token = localStorage.getItem('token')
+  return {
+      Authorization: `Bearer ${token}`,
+      'Content-Type' : 'application/json'
+  }
+}
+
+export const getHearder2 = () => {
+    const token = localStorage.getItem("token")
+    return {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
+    }
+}
+
+const Reverse = () => {
   const [checkInDate, setCheckInDate] = useState(null);
   const [checkOutDate, setCheckOutDate] = useState(null);
-  const [bookedDates, setBookedDates] = useState([]);
+  const [bookings, setBookings] = useState([]);
+  const { id } = useParams();
 
-  // Simulate fetching booked dates for the room from server
   useEffect(() => {
-    const fetchBookedDates = async () => {
-      try {
-        const response = await fetch(`http://localhost:8080/bookings/room/${id}/bookings`);
-        const data = await response.json();
-        const dates = data.map(booking => new Date(booking.checkinDate));
-        setBookedDates(dates);
-      } catch (error) {
-        console.error('Error fetching booked dates:', error);
-      }
-    };
+    fetchBookings();
+  }, []);
 
-    fetchBookedDates();
-  }, [id]);
-
-  const handleDateChange = (date, type) => {
-    if (type === 'checkIn') {
-      setCheckInDate(date);
-    } else {
-      setCheckOutDate(date);
+  const fetchBookings = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/bookings/room/${id}/bookings`);
+      setBookings(response.data);
+      console.log(response.data)
+    } catch (error) {
+      console.error('Error fetching bookings:', error);
     }
   };
 
-  const isDateBooked = (date) => {
-    return bookedDates.some(bookedDate => {
-      return date.getDate() === bookedDate.getDate() &&
-             date.getMonth() === bookedDate.getMonth() &&
-             date.getFullYear() === bookedDate.getFullYear();
-    });
+  const handleBookRoom = async () => {
+    try {
+      const data = {
+      
+        checkInDate: checkInDate,
+        checkOutDate: checkOutDate
+      };
+      
+      const response = await axios.post(`http://localhost:8080/bookings/room/${id}/booking`,
+        
+        data, {headers : getHeader()} 
+      );
+      console.log(data)
+      console.log('Booking created successfully:', response.data);
+    } catch (error) {
+      console.error('Error creating booking:', error);
+    }
+  };
+
+  const isBookedDay = (date) => {
+    return bookings.some(booking =>
+      new Date(booking.checkInDate) <= date && date <= new Date(booking.checkOutDate)
+    );
   };
 
   return (
     <div>
-      <h2>Booking Form</h2>
-      <p>Room ID: {id}</p>
-      <div>
-        <h3>Check-in Date</h3>
-        <DatePicker
-          selected={checkInDate}
-          onChange={(date) => handleDateChange(date, 'checkIn')}
-          filterDate={(date) => !isDateBooked(date)}
-          dateFormat="yyyy-MM-dd"
-        />
-      </div>
-      <div>
-        <h3>Check-out Date</h3>
-        <DatePicker
-          selected={checkOutDate}
-          onChange={(date) => handleDateChange(date, 'checkOut')}
-          filterDate={(date) => !isDateBooked(date)}
-          dateFormat="yyyy-MM-dd"
-        />
-      </div>
-      {/* Other form fields */}
-      <button>Book Now</button>
+      <DatePicker
+        selected={checkInDate}
+        onChange={(date) => setCheckInDate(date)}
+        dateFormat="dd/MM/yyyy"
+        minDate={new Date()}
+        filterDate={!isBookedDay}
+        placeholderText="Select check-in date"
+      />
+      <DatePicker
+        selected={checkOutDate}
+        onChange={(date) => setCheckOutDate(date)}
+        dateFormat="dd/MM/yyyy"
+        minDate={checkInDate || new Date()}
+        filterDate={!isBookedDay}
+        placeholderText="Select check-out date"
+      />
+      <button onClick={handleBookRoom}>Book Room</button>
     </div>
   );
-}
+};
 
 export default Reverse;

@@ -97,7 +97,7 @@ const HomestayDetail = () => {
     <div className='homestayDetails'>
         {homestayData !== null ? (
                 <div className='homestayWrapper'>
-                <button className='bookNow' onClick={()=> navigate('/all-rooms')}>Reserve or Book Now!</button>
+                <button className='bookNow' onClick={()=> navigate(`/all-rooms/${id}`)}>Reserve or Book Now!</button>
                 <h1 className='homestayTitle'>{homestayData.homestayName}</h1>
                 <div className='homestayAddress'>
                   <FontAwesomeIcon icon={faLocationDot}/>

@@ -43,6 +43,16 @@ export async function getAllRooms() {
     }
 }
 
+export async function getAllRoomsByHomestayId(id) {
+    try {
+        const res = await api.get(`/rooms/homestay/${id}/rooms`)
+        return res.data
+    } catch (error) {
+        throw new Error('Error fetching homestays')
+    }
+}
+
+
 export async function addNewRoom ( image , roomType , roomPrice ) {
     // const homestayId = req.params.homestayId
     const formData = new FormData()

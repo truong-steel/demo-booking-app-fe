@@ -20,6 +20,7 @@ import HomestayDetail from './pages/homestay/HomestayDetail';
 import { AuthProvider } from './account/auth/AuthProvider';
 import ExistingRoom from './room/ExistingRoom';
 import RoomListing from './room/RoomListing';
+import ReserveS from './components/reserve/ReserveS';
 
 function App() {
   
@@ -34,13 +35,13 @@ function App() {
 
         <Route path='/booking/:id' element={
           <RequireAuth>
-        <Reserve/>
+        <ReserveS/>
           </RequireAuth>
         } />
 
         <Route path='/manage-room' element={<RoomList/>}/>
         <Route path='/add-room' element={<AddRoom/>}/>
-        <Route path='/all-rooms' element={<RoomListing/>}/>
+        <Route path='/all-rooms/:id' element={<RoomListing/>}/>
 
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/signup' element= {<SignUp/>} />

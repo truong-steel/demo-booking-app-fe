@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import { Col, Container, Row } from 'react-bootstrap'
-import { getAllRooms } from '../api/Api'
+import { getAllRooms, getAllRoomsByHomestayId } from '../api/Api'
 import RoomCard from './RoomCard'
 import { RoomFilter } from '../common/RoomFilter'
 import { RoomPage } from '../common/RoomPage'
+import { useParams } from 'react-router-dom'
+import axios from 'axios'
 
 
 const Room = () => {
-
+    const {id} = useParams();
     const [data, setData] = useState([])
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(false)
@@ -15,9 +17,10 @@ const Room = () => {
     const [roomPerPage] = useState(5)
     const [fitleredData, setFilteredData] = useState([{ id: "" }])
 
+
     useEffect(() => {
         setIsLoading(true)
-        getAllRooms().then((data) => {
+        getAllRoomsByHomestayId(id).then((data) => {
             setData(data)
             setFilteredData(data)
             setIsLoading(false)
@@ -25,7 +28,7 @@ const Room = () => {
             setError(error.message)
             setIsLoading(false)
         })
-    }, [])
+    }, [id])
 
     if (isLoading) {
         return <div>Loading ...</div>
